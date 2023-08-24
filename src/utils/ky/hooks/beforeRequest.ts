@@ -10,7 +10,8 @@ export const setAuthorizationHeader: BeforeRequestHookWithProcess =
   process => async (request, options) => {
     if (
       !(process.env?.NEXT_RUNTIME === 'nodejs') &&
-      !(process.env?.NEXT_RUNTIME === 'edge')
+      !(process.env?.NEXT_RUNTIME === 'edge') &&
+      typeof Window
     ) {
       const accessToken = store[COOKIE_ACCESS_TOKEN_KEY];
       if (accessToken) {

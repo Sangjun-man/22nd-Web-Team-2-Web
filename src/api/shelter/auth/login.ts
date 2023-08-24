@@ -1,5 +1,5 @@
 import api from '@/api/instance';
-import { ApiErrorResponse } from '@/types/apiTypes';
+import ky from 'ky';
 
 export interface LoginPayload {
   email: string;
@@ -12,8 +12,9 @@ export type LoginResponse = {
 };
 
 export const loginShelter = async (data: LoginPayload) => {
-  const response = await api
+  const response = await ky
     .post(`auth/shelter/login`, {
+      prefixUrl: process.env.NEXT_PUBLIC_API_ENDPOINT,
       json: data
     })
     .then(res => res.json<LoginResponse>());
